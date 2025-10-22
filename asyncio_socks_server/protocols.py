@@ -177,7 +177,10 @@ class LocalTCP(asyncio.Protocol):
                 try:
                     loop = asyncio.get_event_loop()
                     task = loop.create_connection(
-                        lambda: RemoteTCP(self, self.config), DST_ADDR, DST_PORT
+                        lambda: RemoteTCP(self, self.config),
+                        DST_ADDR,
+                        DST_PORT,
+                        local_addr=(self.config.BIND_ADDRESS,0)
                     )
                     remote_tcp_transport, remote_tcp = await asyncio.wait_for(task, 5)
                 except ConnectionRefusedError:
@@ -212,7 +215,7 @@ class LocalTCP(asyncio.Protocol):
                     loop = asyncio.get_event_loop()
                     task = loop.create_datagram_endpoint(
                         lambda: LocalUDP((DST_ADDR, DST_PORT), self.config),
-                        local_addr=("0.0.0.0", 0),
+                        local_addr=(self.config.BIND_ADDRESS, 0),
                     )
                     local_udp_transport, local_udp = await asyncio.wait_for(task, 5)
                 except Exception:

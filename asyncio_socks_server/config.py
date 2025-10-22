@@ -19,6 +19,7 @@ BASE_LOGO = """
 DEFAULT_CONFIG = {
     "LISTEN_HOST": "0.0.0.0",
     "LISTEN_PORT": 1080,
+    "BIND_ADDRESS": "0.0.0.0",
     "AUTH_METHOD": SocksAuthMethod.NO_AUTH,
     "ACCESS_LOG": False,
     "STRICT": False,
@@ -30,6 +31,7 @@ DEFAULT_CONFIG = {
 class Config(dict):
     LISTEN_HOST: str
     LISTEN_PORT: int
+    BIND_ADDRESS: str
     AUTH_METHOD: int
     ACCESS_LOG: bool
     STRICT: bool
